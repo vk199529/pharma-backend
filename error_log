@@ -1,0 +1,1 @@
+[06-Jun-2025 05:52:21 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.32. in /home/panaclef/public_html/index-2/vendor/composer/platform_check.php on line 24

@@ -1,0 +1,58 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RfqController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\ProductPdfController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\CompanyFaqController;
+use App\Http\Controllers\ShippingFaqController;
+//use App\Http\Controllers\PerfexController;
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('pages/welcome');
+});
+Route::get('/generate-embeddings', [ProductController::class, 'generateEmbeddings']);
+// Route::get('/seaproducts-smart-search', function () { 
+//     return view('pages/welcome');
+// });
+
+Route::get('/products-smart-search', [ProductController::class, 'search']);
+
+Route::post('/submit-rfq', [RfqController::class, 'storeFormData']);
+Route::get('/submit-rfq-test', [RfqController::class, 'test']);
+
+Route::get('/', [CountryController::class, 'index']);
+
+Route::get('/timezone', function () {
+   return [
+        'timezone' => config('app.timezone'),
+        'current_time' => now()->toDateTimeString()
+    ];
+});
+
+
+Route::post('/download-pdf', [ProductPdfController::class, 'downloadPdf'])->name('download.pdf');
+
+/* Route::get('/faqs', [FaqController::class, 'index'])->name('faq.page');
+Route::post('/faqs/search', [FaqController::class, 'search'])->name('faq.search'); */
+
+Route::get('/faq/search', [FaqController::class, 'search'])->name('faq.search');
+
+Route::get('/company-faq-search', [CompanyFaqController::class, 'search']);
+Route::get('/shipping-faq-search', [ShippingFaqController::class, 'search']);
+// Route::get('/sync-product', [PerfexController::class, 'syncProduct']);
